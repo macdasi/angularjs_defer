@@ -2,8 +2,8 @@
  * Created by Bitusi on 09/03/2015.
  */
 angular.module('test1App')
-  .service('service1', function ($q) {
-
+  .factory('factory1', function ($q) {
+    var self = this;
     var deferred = $q.defer();
     var timer = 0,index = 0;
 
@@ -22,21 +22,26 @@ angular.module('test1App')
       deferred.notify(index);
     };
 
-    this.start = function(){
-      var self = this;
+    var start = function(){
+
       timer = setInterval(function(){
         self.update();
-        console.log('updtae from service');
+        console.log('updtae from factory');
       },1000);
     };
 
-    this.stop = function(){
+    var stop = function(){
       clearInterval(timer);
     };
 
-    this.notify = function(name){
+    var notify = function(name){
       return deferred.promise;
     };
 
+    return {
+      start :start ,
+      stop : stop ,
+      notify : notify
+    }
 
   });
